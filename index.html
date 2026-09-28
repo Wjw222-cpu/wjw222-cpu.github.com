@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WJW · B端产品经理</title>
+  <meta name="description" content="B端产品经理 | 5年经验 | 供应链 / 金融 / 即时配送 / 政务数字化" />
+
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            ink: {
+              50: '#f6f7f9',
+              100: '#eceef2',
+              200: '#d5dae2',
+              300: '#b0bac8',
+              400: '#8593a8',
+              500: '#66748d',
+              600: '#515d74',
+              700: '#424c5f',
+              800: '#394250',
+              900: '#232936',
+              950: '#14181f',
+            },
+            brand: {
+              50: '#eef4ff',
+              100: '#dce7fd',
+              200: '#c0d4fc',
+              300: '#95b9f9',
+              400: '#6395f4',
+              500: '#3e71ee',
+              600: '#2852e3',
+              700: '#203fd1',
+              800: '#2036aa',
+              900: '#1f3286',
+            },
+          },
+          boxShadow: {
+            soft: '0 10px 40px -12px rgba(35, 41, 54, 0.15)',
+            card: '0 1px 2px rgba(20,24,31,0.04), 0 12px 32px -16px rgba(20,24,31,0.16)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif; }
+
+    /* 渐变文字 */
+    .text-gradient {
+      background: linear-gradient(120deg, #2852e3 0%, #7c5cff 50%, #0ea5e9 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* 滚动显现动画 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero 背景网格 */
+    .hero-grid {
+      background-image:
+        linear-gradient(to right, rgba(40, 82, 227, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(40, 82, 227, 0.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+    }
+
+    .hero-blob {
+      filter: blur(90px);
+      opacity: 0.55;
+    }
+
+    /* 项目卡片图片缩放 */
+    .project-media img {
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .project-card:hover .project-media img {
+      transform: scale(1.06);
+    }
+
+    /* 导航链接下划线 */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2852e3, #7c5cff);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { width: 100%; }
+
+    /* 鼠标滑过社交按钮 */
+    .social-pill {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .social-pill:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -10px rgba(40, 82, 227, 0.4);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-ink-900 antialiased selection:bg-brand-100 selection:text-brand-700">
+
+  <!-- ============ 导航栏 ============ -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-transparent">
+    <nav class="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16 md:h-[72px]">
+      <!-- Logo -->
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-600 to-violet-500 flex items-center justify-center text-white font-extrabold text-sm shadow-soft group-hover:scale-105 transition-transform">
+          W
+        </span>
+        <span class="font-bold tracking-tight text-ink-900">WJW<span class="text-brand-600">.</span></span>
+      </a>
+
+      <!-- 桌面导航 -->
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-600">
+        <a href="#about" class="nav-link hover:text-ink-900 transition-colors">关于我</a>
+        <a href="#projects" class="nav-link hover:text-ink-900 transition-colors">项目作品</a>
+        <a href="#domains" class="nav-link hover:text-ink-900 transition-colors">业务方向</a>
+        <a href="#contact" class="nav-link hover:text-ink-900 transition-colors">联系我</a>
+      </div>
+
+      <div class="hidden md:block">
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-full bg-ink-900 text-white text-sm font-semibold px-5 py-2.5 hover:bg-brand-600 transition-colors">
+          <i class="fa-regular fa-paper-plane text-xs"></i> 取得联系
+        </a>
+      </div>
+
+      <!-- 移动端菜单按钮 -->
+      <button id="menuBtn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-ink-50 text-ink-700" aria-label="打开菜单">
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </nav>
+
+    <!-- 移动端下拉菜单 -->
+    <div id="mobileMenu" class="md:hidden hidden bg-white/95 backdrop-blur-md border-b border-ink-100 shadow-soft">
+      <div class="px-5 py-4 flex flex-col gap-1 text-sm font-medium">
+        <a href="#about" class="mobile-link py-3 px-3 rounded-lg hover:bg-ink-50 text-ink-700 flex items-center justify-between">关于我 <i class="fa-solid fa-chevron-right text-xs text-ink-300"></i></a>
+        <a href="#projects" class="mobile-link py-3 px-3 rounded-lg hover:bg-ink-50 text-ink-700 flex items-center justify-between">项目作品 <i class="fa-solid fa-chevron-right text-xs text-ink-300"></i></a>
+        <a href="#domains" class="mobile-link py-3 px-3 rounded-lg hover:bg-ink-50 text-ink-700 flex items-center justify-between">业务方向 <i class="fa-solid fa-chevron-right text-xs text-ink-300"></i></a>
+        <a href="#contact" class="mobile-link mt-2 py-3 px-3 rounded-lg bg-ink-900 text-white flex items-center justify-center gap-2"><i class="fa-regular fa-paper-plane text-xs"></i> 取得联系</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ Hero ============ -->
+    <section class="relative overflow-hidden pt-28 md:pt-40 pb-16 md:pb-24">
+      <!-- 背景装饰 -->
+      <div class="absolute inset-0 hero-grid pointer-events-none"></div>
+      <div class="hero-blob absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-brand-300 pointer-events-none"></div>
+      <div class="hero-blob absolute top-40 -right-24 w-[380px] h-[380px] rounded-full bg-violet-300 pointer-events-none"></div>
+
+      <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="grid md:grid-cols-12 gap-10 items-center">
+          <!-- 文案 -->
+          <div class="md:col-span-7">
+            <div class="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-semibold text-ink-600 mb-6">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              开放新机会 · 欢迎联系
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-ink-900">
+              你好，我是<br />
+              <span class="text-gradient">B端产品经理</span>
+            </h1>
+
+            <p class="mt-5 text-base sm:text-lg text-ink-600 leading-relaxed max-w-xl">
+              复杂业务后台设计者 · 数据驱动实践者。5 年 B 端产品经验，
+              深耕<span class="font-semibold text-ink-800">供应链、金融、即时配送与政务数字化</span>，
+              将模糊的业务诉求拆解为清晰的产品结构与规则体系。
+            </p>
+
+            <!-- 行动按钮 -->
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <a href="#projects" class="inline-flex items-center gap-2 rounded-full bg-ink-900 text-white font-semibold px-6 py-3 hover:bg-brand-600 transition-colors shadow-soft">
+                查看项目作品 <i class="fa-solid fa-arrow-down text-sm"></i>
+              </a>
+              <a href="#about" class="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white font-semibold px-6 py-3 text-ink-700 hover:border-ink-300 hover:bg-ink-50 transition-colors">
+                <i class="fa-regular fa-user text-sm"></i> 关于我
+              </a>
+            </div>
+
+            <!-- 数据亮点 -->
+            <dl class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div class="rounded-2xl border border-ink-100 bg-white/80 backdrop-blur p-4">
+                <dt class="text-xs text-ink-400 font-medium">经验</dt>
+                <dd class="mt-1 text-2xl font-extrabold text-ink-900">5<span class="text-brand-600">年</span></dd>
+              </div>
+              <div class="rounded-2xl border border-ink-100 bg-white/80 backdrop-blur p-4">
+                <dt class="text-xs text-ink-400 font-medium">大型项目</dt>
+                <dd class="mt-1 text-2xl font-extrabold text-ink-900">3<span class="text-brand-600">个</span></dd>
+              </div>
+              <div class="rounded-2xl border border-ink-100 bg-white/80 backdrop-blur p-4">
+                <dt class="text-xs text-ink-400 font-medium">抽象指标</dt>
+                <dd class="mt-1 text-2xl font-extrabold text-ink-900">200<span class="text-brand-600">+</span></dd>
+              </div>
+              <div class="rounded-2xl border border-ink-100 bg-white/80 backdrop-blur p-4">
+                <dt class="text-xs text-ink-400 font-medium">试单金额</dt>
+                <dd class="mt-1 text-2xl font-extrabold text-ink-900">9000<span class="text-brand-600">万+</span></dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- 头像 -->
+          <div class="md:col-span-5">
+            <div class="relative mx-auto max-w-sm">
+              <div class="absolute -inset-3 bg-gradient-to-tr from-brand-500 to-violet-500 rounded-[2rem] opacity-20 blur-xl"></div>
+              <div class="relative rounded-[2rem] overflow-hidden border border-white shadow-card aspect-[4/5]">
+                <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" class="w-full h-full block" role="img" aria-label="女性商务卡通形象">
+                  <defs>
+                    <linearGradient id="avaBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#e7f0ff"/>
+                      <stop offset="0.55" stop-color="#eef4ff"/>
+                      <stop offset="1" stop-color="#f2ecff"/>
+                    </linearGradient>
+                    <linearGradient id="avaBlazer" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#2b3f6b"/>
+                      <stop offset="1" stop-color="#1e2c4f"/>
+                    </linearGradient>
+                  </defs>
+
+                  <!-- 背景 -->
+                  <rect width="400" height="500" fill="url(#avaBg)"/>
+                  <circle cx="52" cy="86" r="48" fill="#d8e4ff" opacity="0.65"/>
+                  <circle cx="360" cy="436" r="64" fill="#e6dcff" opacity="0.65"/>
+                  <circle cx="334" cy="66" r="9" fill="#c3d3ff"/>
+                  <circle cx="66" cy="214" r="6" fill="#c3d3ff"/>
+
+                  <!-- 后发 -->
+                  <ellipse cx="200" cy="182" rx="98" ry="110" fill="#2f2a26"/>
+
+                  <!-- 脖子 -->
+                  <path d="M175 246 L225 246 L225 296 Q225 314 200 314 Q175 314 175 296 Z" fill="#f3c09c"/>
+
+                  <!-- 西装外套 -->
+                  <path d="M200 252 C134 252 86 302 78 368 L74 500 L326 500 L322 368 C314 302 266 252 200 252 Z" fill="url(#avaBlazer)"/>
+                  <!-- 白衬衫 -->
+                  <path d="M200 264 L168 348 L200 322 L232 348 Z" fill="#ffffff"/>
+                  <!-- 领带 -->
+                  <path d="M200 266 L189 284 L200 296 L211 284 Z" fill="#3e71ee"/>
+
+                  <!-- 脸 -->
+                  <ellipse cx="200" cy="190" rx="79" ry="90" fill="#f7c9a4"/>
+
+                  <!-- 刘海 -->
+                  <path d="M123 198 C123 128 167 108 200 108 C233 108 277 128 277 198 C277 166 253 150 200 150 C147 150 123 166 123 198 Z" fill="#2f2a26"/>
+
+                  <!-- 眉毛 -->
+                  <path d="M161 178 Q176 169 190 175" stroke="#2f2a26" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+                  <path d="M210 175 Q224 169 239 178" stroke="#2f2a26" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+                  <!-- 眼睛 -->
+                  <circle cx="175" cy="198" r="5.2" fill="#2f2a26"/>
+                  <circle cx="225" cy="198" r="5.2" fill="#2f2a26"/>
+                  <!-- 腮红 -->
+                  <ellipse cx="150" cy="216" rx="11" ry="6.5" fill="#f2a08f" opacity="0.55"/>
+                  <ellipse cx="250" cy="216" rx="11" ry="6.5" fill="#f2a08f" opacity="0.55"/>
+                  <!-- 微笑 -->
+                  <path d="M186 226 Q200 240 214 226" stroke="#c86e58" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+                  <!-- 耳环 -->
+                  <circle cx="119" cy="212" r="3.6" fill="#f0b54b"/>
+                  <circle cx="281" cy="212" r="3.6" fill="#f0b54b"/>
+                </svg>
+              </div>
+              <!-- 浮动标签 -->
+              <div class="absolute -bottom-5 -left-4 sm:-left-8 rounded-2xl bg-white shadow-card border border-ink-100 px-4 py-3 flex items-center gap-3">
+                <span class="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center"><i class="fa-solid fa-diagram-project"></i></span>
+                <div>
+                  <p class="text-xs text-ink-400 font-medium">产品架构</p>
+                  <p class="text-sm font-bold text-ink-900">规则引擎 · 系统设计</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 关于我 ============ -->
+    <section id="about" class="py-20 md:py-28 bg-ink-50/60 scroll-mt-20">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="grid md:grid-cols-12 gap-10 items-center">
+          <!-- 图片 -->
+          <div class="md:col-span-5 reveal">
+            <div class="relative rounded-[2rem] overflow-hidden shadow-card border border-ink-100 aspect-[4/3]">
+              <img src="https://picsum.photos/800/600?random=2" alt="工作场景" class="w-full h-full object-cover" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-950/50 via-transparent to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-white text-sm font-semibold">
+                <i class="fa-solid fa-location-dot text-brand-300"></i> 现居上海
+              </div>
+            </div>
+          </div>
+
+          <!-- 文字 -->
+          <div class="md:col-span-7">
+            <div class="reveal">
+              <p class="text-xs font-bold tracking-[0.2em] uppercase text-brand-600 mb-3">About Me</p>
+              <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">把复杂业务，做成清晰的系统</h2>
+              <p class="mt-5 text-ink-600 leading-relaxed">
+                我是一名专注于企业级复杂业务的产品经理，5 年 B 端经验，主导 3 个大型项目上线运营，
+                服务多家大型企业。擅长将模糊的业务诉求拆解为清晰的产品结构与规则体系，主导过
+                智能调度、佣金计算、风控规则引擎等强逻辑模块。
+              </p>
+            </div>
+
+            <ul class="mt-8 space-y-4">
+              <li class="reveal flex gap-4">
+                <span class="shrink-0 w-11 h-11 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-lg"><i class="fa-solid fa-route"></i></span>
+                <div>
+                  <h3 class="font-bold text-ink-900">强逻辑模块设计</h3>
+                  <p class="text-sm text-ink-500 mt-1">主导智能调度、佣金计算、风控规则引擎等复杂逻辑产品的架构与落地。</p>
+                </div>
+              </li>
+              <li class="reveal flex gap-4">
+                <span class="shrink-0 w-11 h-11 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center text-lg"><i class="fa-solid fa-chart-line"></i></span>
+                <div>
+                  <h3 class="font-bold text-ink-900">数据驱动验证价值</h3>
+                  <p class="text-sm text-ink-500 mt-1">订单处理时长下降 30%、结算效率提升 40%，抽象 200+ 指标辅助决策。</p>
+                </div>
+              </li>
+              <li class="reveal flex gap-4">
+                <span class="shrink-0 w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg"><i class="fa-solid fa-people-group"></i></span>
+                <div>
+                  <h3 class="font-bold text-ink-900">跨部门协同推进</h3>
+                  <p class="text-sm text-ink-500 mt-1">独立支撑多个大型企业客户系统交付，具备优秀的项目推进与协同能力。</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 项目作品 ============ -->
+    <section id="projects" class="py-20 md:py-28 scroll-mt-20">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-brand-600 mb-3">Selected Work</p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">项目作品</h2>
+          <p class="mt-4 text-ink-600">主导过的大型企业级项目，覆盖供应链、CRM 等复杂业务场景。</p>
+        </div>
+
+        <!-- 项目 1 -->
+        <article class="project-card reveal mt-12 rounded-[2rem] overflow-hidden border border-ink-100 bg-white shadow-card grid md:grid-cols-2">
+          <div class="project-media relative aspect-[16/10] md:aspect-auto md:min-h-full overflow-hidden">
+            <img src="https://picsum.photos/900/700?random=3" alt="供应链服务系统" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-ink-950/10 to-transparent"></div>
+            <div class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur px-3 py-1.5 text-xs font-bold text-ink-800">
+              <i class="fa-solid fa-boxes-stacked text-brand-600"></i> 供应链
+            </div>
+          </div>
+          <div class="p-7 sm:p-10 flex flex-col">
+            <p class="text-xs font-semibold text-ink-400">01 · 大型集团项目</p>
+            <h3 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-ink-900">供应链服务系统</h3>
+            <p class="mt-3 text-ink-600 leading-relaxed">整合 OMS、WMS 与采购模块，构建从订单到出入库、再到风控与监管的一体化平台。</p>
+
+            <ul class="mt-6 space-y-3 text-sm text-ink-700">
+              <li class="flex gap-2.5"><i class="fa-solid fa-check text-brand-600 mt-0.5"></i><span>智能订单拆分、集中采购与出入库策略，实现供应链各环节打通。</span></li>
+              <li class="flex gap-2.5"><i class="fa-solid fa-check text-brand-600 mt-0.5"></i><span>搭建风控规则引擎，支持事前 / 事中 / 事后灵活配置与处置闭环。</span></li>
+              <li class="flex gap-2.5"><i class="fa-solid fa-check text-brand-600 mt-0.5"></i><span>抽象 200+ 指标构建监管报表与可视化大屏。</span></li>
+              <li class="flex gap-2.5"><i class="fa-solid fa-check text-brand-600 mt-0.5"></i><span>主导 B 端赊销业务建设，上线试单交易金额 <strong class="text-ink-900">9000 万+</strong>。</span></li>
+            </ul>
+
+            <div class="mt-7 flex flex-wrap gap-2">
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">OMS</span>
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">WMS</span>
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">风控规则引擎</span>
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">数据可视化</span>
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">赊销</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 项目 2 -->
+        <article class="project-card reveal mt-8 rounded-[2rem] overflow-hidden border border-ink-100 bg-white shadow-card grid md:grid-cols-2 md:[&>*:first-child]:order-2">
+          <div class="project-media relative aspect-[16/10] md:aspect-auto md:min-h-full overflow-hidden">
+            <img src="https://picsum.photos/900/700?random=4" alt="食品集团CRM系统" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-ink-950/10 to-transparent"></div>
+            <div class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur px-3 py-1.5 text-xs font-bold text-ink-800">
+              <i class="fa-solid fa-users text-brand-600"></i> CRM
+            </div>
+          </div>
+          <div class="p-7 sm:p-10 flex flex-col">
+            <p class="text-xs font-semibold text-ink-400">02 · 食品集团项目</p>
+            <h3 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-ink-900">CRM 系统（Web + 商城 + 移动端）</h3>
+            <p class="mt-3 text-ink-600 leading-relaxed">覆盖客户管理、销售管理、运营中心与线上商城的一体化 CRM，推动交易在线化与精细化运营。</p>
+
+            <ul class="mt-6 space-y-3 text-sm text-ink-700">
+              <li class="flex gap-2.5"><i class="fa-solid fa-check text-brand-600 mt-0.5"></i><span>客户管理：标签、公海池与销售机会管理。</span></li>
+              <li class="flex gap-2.5"><i class="fa-solid fa-check text-brand-600 mt-0.5"></i><span>销售管理：计划、协议、订单与报价全流程。</span></li>
+              <li class="flex gap-2.5"><i class="fa-solid fa-check text-brand-600 mt-0.5"></i><span>运营中心：商品管理与营销自动化。</span></li>
+              <li class="flex gap-2.5"><i class="fa-solid fa-check text-brand-600 mt-0.5"></i><span>线上商城：展示、交易、支付与在线签署一体化。</span></li>
+            </ul>
+
+            <div class="mt-7 flex flex-wrap gap-2">
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">CRM</span>
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">营销自动化</span>
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">商城</span>
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">移动端</span>
+              <span class="rounded-full bg-ink-50 text-ink-600 text-xs font-semibold px-3 py-1.5">在线签署</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 业务方向 ============ -->
+    <section id="domains" class="py-20 md:py-28 bg-ink-900 text-white scroll-mt-20 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-[0.07] pointer-events-none"
+        style="background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px); background-size: 48px 48px;"></div>
+
+      <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-brand-400 mb-3">Focus Areas</p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">深耕的业务方向</h2>
+        </div>
+
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-6 hover:bg-white/[0.08] hover:-translate-y-1 transition-all duration-300">
+            <span class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-300 flex items-center justify-center text-xl"><i class="fa-solid fa-boxes-stacked"></i></span>
+            <h3 class="mt-5 font-bold text-lg">供应链</h3>
+            <p class="mt-2 text-sm text-white/60 leading-relaxed">订单拆分、集中采购、出入库策略与仓储协同。</p>
+          </div>
+          <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-6 hover:bg-white/[0.08] hover:-translate-y-1 transition-all duration-300">
+            <span class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-xl"><i class="fa-solid fa-coins"></i></span>
+            <h3 class="mt-5 font-bold text-lg">金融</h3>
+            <p class="mt-2 text-sm text-white/60 leading-relaxed">赊销、风控规则引擎与资金链路设计。</p>
+          </div>
+          <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-6 hover:bg-white/[0.08] hover:-translate-y-1 transition-all duration-300">
+            <span class="w-12 h-12 rounded-xl bg-violet-500/20 text-violet-300 flex items-center justify-center text-xl"><i class="fa-solid fa-bolt"></i></span>
+            <h3 class="mt-5 font-bold text-lg">即时配送</h3>
+            <p class="mt-2 text-sm text-white/60 leading-relaxed">智能调度与配送履约的强逻辑模块设计。</p>
+          </div>
+          <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-6 hover:bg-white/[0.08] hover:-translate-y-1 transition-all duration-300">
+            <span class="w-12 h-12 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center text-xl"><i class="fa-solid fa-landmark"></i></span>
+            <h3 class="mt-5 font-bold text-lg">政务数字化</h3>
+            <p class="mt-2 text-sm text-white/60 leading-relaxed">监管报表、可视化大屏与合规流程数字化。</p>
+          </div>
+        </div>
+
+        <!-- 技能标签 -->
+        <div class="mt-14 reveal">
+          <p class="text-sm font-semibold text-white/40 uppercase tracking-widest mb-4">核心能力</p>
+          <div class="flex flex-wrap gap-2.5">
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 transition-colors">需求分析</span>
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 transition-colors">产品架构设计</span>
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 transition-colors">规则引擎</span>
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 transition-colors">智能调度</span>
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 transition-colors">佣金计算</span>
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 transition-colors">风控</span>
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 transition-colors">数据可视化</span>
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 transition-colors">跨部门协同</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 联系我 ============ -->
+    <section id="contact" class="py-20 md:py-28 scroll-mt-20">
+      <div class="max-w-4xl mx-auto px-5 sm:px-8 text-center">
+        <div class="reveal">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-brand-600 mb-3">Get In Touch</p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">保持联系</h2>
+          <p class="mt-4 text-ink-600 max-w-xl mx-auto">目前各社交平台暂不公开，欢迎通过私信获取联系方式。若你对企业级产品、复杂业务系统设计有兴趣，也欢迎交流。</p>
+        </div>
+
+        <div class="reveal mt-10 flex flex-wrap justify-center gap-3">
+          <a href="#contact" class="social-pill inline-flex items-center gap-2.5 rounded-full border border-ink-200 bg-white px-5 py-3 text-sm font-semibold text-ink-700">
+            <i class="fa-solid fa-qrcode text-brand-600"></i> 公众号 <span class="text-xs text-ink-400 font-normal">私信获取</span>
+          </a>
+          <a href="#contact" class="social-pill inline-flex items-center gap-2.5 rounded-full border border-ink-200 bg-white px-5 py-3 text-sm font-semibold text-ink-700">
+            <i class="fa-regular fa-compass text-brand-600"></i> 即刻 <span class="text-xs text-ink-400 font-normal">私信获取</span>
+          </a>
+          <a href="#contact" class="social-pill inline-flex items-center gap-2.5 rounded-full border border-ink-200 bg-white px-5 py-3 text-sm font-semibold text-ink-700">
+            <i class="fa-brands fa-bilibili text-brand-600"></i> B站 <span class="text-xs text-ink-400 font-normal">私信获取</span>
+          </a>
+          <a href="#contact" class="social-pill inline-flex items-center gap-2.5 rounded-full border border-ink-200 bg-white px-5 py-3 text-sm font-semibold text-ink-700">
+            <i class="fa-brands fa-weixin text-brand-600"></i> 微信 <span class="text-xs text-ink-400 font-normal">私信获取</span>
+          </a>
+        </div>
+
+        <div class="reveal mt-12 rounded-[2rem] overflow-hidden border border-ink-100 shadow-card">
+          <img src="https://picsum.photos/1200/400?random=5" alt="联系横幅" class="w-full h-40 sm:h-52 object-cover" loading="lazy" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 页脚 ============ -->
+  <footer class="border-t border-ink-100 bg-ink-50/60">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-violet-500 flex items-center justify-center text-white font-extrabold text-xs">W</span>
+        <span class="text-sm font-semibold text-ink-700">WJW · B端产品经理</span>
+      </div>
+      <p class="text-sm text-ink-400">© <span id="year"></span> WJW. 现居上海 · 供应链 / 金融 / 即时配送 / 政务数字化</p>
+      <a href="#top" class="w-10 h-10 rounded-full border border-ink-200 bg-white flex items-center justify-center text-ink-600 hover:bg-ink-900 hover:text-white hover:border-ink-900 transition-colors" aria-label="回到顶部">
+        <i class="fa-solid fa-arrow-up"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- ============ JavaScript ============ -->
+  <script>
+    // 当前年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 移动端菜单切换
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = menuBtn.querySelector('i');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      menuIcon.className = isOpen ? 'fa-solid fa-bars text-lg' : 'fa-solid fa-xmark text-lg';
+    });
+
+    // 点击移动端链接后关闭菜单
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIcon.className = 'fa-solid fa-bars text-lg';
+      });
+    });
+
+    // 导航栏滚动时加边框阴影
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('border-ink-100', 'shadow-soft');
+        navbar.classList.remove('border-transparent');
+      } else {
+        navbar.classList.remove('border-ink-100', 'shadow-soft');
+        navbar.classList.add('border-transparent');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // 滚动显现动画
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 导航高亮当前区块
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '-20% 0px -40% 0px' });
+
+    sections.forEach(s => sectionObserver.observe(s));
+  </script>
+</body>
+</html>
